@@ -6,10 +6,11 @@ This respository contains scripts for reading in sonar bathymetry data for a wat
 ### The Plan
 #### Phase 1 - Test case
 1.   Read in the data
-       + Read in sonar transect data from single lake
-       + Get the lake boundary from bcdata
+       + Read in sonar transect data from Moberly Lake
+       + Get the lake boundary from [BC Data Warehouse Freshwater Atlas Lakes](https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-lakes)
+       ![](./out/raw-data-lake.png)
 2.   Create raster bathymetry surface from data subsets of varying number of transects
-       + Exploring Saga, marmap, and Machine Learning
+       + Explore Saga, marmap, and Machine Learning for building raster
 3.   Compare bathymetry surfaces to determine the optimal number of transects to get an accurate bathymetry surface
        + Difference raster layers and calculate mean difference
        + Create plot of data amount vs difference
@@ -22,7 +23,7 @@ This respository contains scripts for reading in sonar bathymetry data for a wat
 
 ### Usage
 
-Data used for **Phase 1 - Test Case** is point sonar bathymetry data collected in transects supplied by BC Government staff. User data should be added to the ```data``` folder.
+Data used for **Phase 1 - Test Case** is point sonar bathymetry data collected in transects supplied by BC Government staff. User data should be added to the `data` folder.
 
 Describe how to run. Eg:
 

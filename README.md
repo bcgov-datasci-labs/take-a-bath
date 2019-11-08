@@ -24,11 +24,11 @@ This respository contains scripts for reading in sonar bathymetry data for a wat
        + Provide suggestion for number of transects to use for sampling
 
 #### Phase 2 - Improvements
-1. Get lake boundary from satellite imagery for current lake boundary
+1. Create functions and loop over multiple transect subsets
+2. Get lake boundary from satellite imagery for current lake boundary
        + classify satellite imagery and extract lake polygon
-2. Upload user lake polygon
-3. Align transect grid to the lake axis.
-
+3. Upload user lake polygon
+4. Align transect grid to the lake axis
 
 ### Data
 User data should be added to the `data` folder.

@@ -15,7 +15,7 @@ library(bcdata)
 library(mapview)
 
 # ----------------------------------------------------
-# Load points fril from the data directory
+# Load points from the data directory
 
 # Unzip depth points file
 unzip("data/moberly.zip", exdir = "data")

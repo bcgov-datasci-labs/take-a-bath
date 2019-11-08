@@ -11,22 +11,49 @@
 # See the License for the specific language governing permissions and limitations under the License.
 
 
-# Example using marmap
+# This is exploring using marmap to make a bethy map so that we don't have
+# to do this ourselves
 
+
+library(dplyr)
+library(sf)
 library(marmap)
 
-papoue <- getNOAA.bathy(lon1 = 140, lon2 = 155,
-                        lat1 = -13, lat2 = 0, resolution = 10)
+#example from marmap
+data(irregular)
+irregular
 
-class(papoue) #creates "bathy" class
-summary(papoue)
-plot(papoue)
+# This is converting a points layer to a raster using the raster package
+reg <- griddify(irregular, nlon = 40, nlat = 60)
+class(reg)
+plot(reg)
 
-#looks like this is used for plotting bathy maps, which is better for AFTER we have a code made up
+# This is applyng a bilinear smoother
+bat <- as.bathy(reg)
+class(bat)
+plot(bat, image = TRUE, lwd = 0.1)
 
 
+#try this out with the lake data
 
+str(irregular)
+str(points)
 
+points.wgs <- st_transform(points, crs = 4326)
+
+pt.setup <- points %>%
+  mutate(lon = LONGTITUDE) %>%
+  mutate(lat = LATITUDE) %>%
+  mutate(depth = DEPTH) %>%
+  select(lon, lat, depth)
+
+str(pt.setup)
+df.points <- st_drop_geometry(pt.setup)
+str(df.points)
+lk <- griddify(df.points, nlon=60, nlat=60)
+lake.bathy <- as.bathy(lk)
+
+plot(lake.bathy, image = TRUE, lwd = 0.1)
 
 
 

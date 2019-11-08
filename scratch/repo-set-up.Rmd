@@ -1,0 +1,51 @@
+---
+title: ""
+output: html_document
+---
+
+<!--
+Copyright 2019 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and limitations under the License.
+-->
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Interactive Steps to Set-Up Repository
+
+(1) Open an new, empty repository in your GitHub organization
+
+- choose repo name (follow a style convention if you wish)
+- add a 1-sentence description of what is _in_ the repo
+- copy URL for repository to clipboard
+
+(2) Clone the repository to your machine
+
+In RStudio:
+
+- select New Project -- Version Control -- paste in URL -- choose location for local copy
+
+Terminal or Git Bash: `git clone <URL for repository>
+
+(3) Auto-populate with files with `bcgovr`
+
+
+```{r pressure, eval=FALSE}
+library(bcgovr) #available from GitHub https://github.com/bcgov/bcgovr
+
+create_bcgov_project(rmarkdown = FALSE) #use a md for readme instead of Rmd
+```
+
+

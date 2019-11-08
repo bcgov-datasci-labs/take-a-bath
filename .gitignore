@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+/data
+/tmp
+*pdf
+.DS_Store
+*html
+

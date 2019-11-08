@@ -1,6 +1,15 @@
 <a id="devex-badge" rel="Exploration" href="https://github.com/BCDevExchange/assets/blob/master/README.md"><img alt="Being designed and built, but in the lab. May change, disappear, or be buggy." style="border-width:0" src="https://assets.bcdevexchange.org/images/badges/exploration.svg" title="Being designed and built, but in the lab. May change, disappear, or be buggy." /></a>[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## take-a-bath
+This respository contains scripts for reading in sonar bathymetry data for a water body, building a raster bathymetry surface, and evaluating the optimal number of transects to build an accurate surface. The scripts were developed as part of the BC Government North Area R Geospatial Workshop Hackathon.
+
+### The Plan
+####Phase 1 - Test case
+1.   Read in the data
+       + Read in sonar transect data from single lake
+       + Get the lake boundary from bcdata
+2.   Create raster bathymetry surface from data subsets of varying number of transects
+3.   Compare bathymetry surfaces to determine the optimal number of transects to get an accurate bathymetry surface
 
 
 ### Usage
@@ -9,9 +18,9 @@ Describe data being used (links), and how to run. Eg:
 
 There are four core scripts that are required for the analysis, they need to be run in order:
 
--   01\_clean.R
--   02\_analysis.R
--   03\_visualize.R
+-   01\_load.R
+-   02\_clean.R
+-   03\_analysis.R
 -   04\_output.R
 
 #### Example

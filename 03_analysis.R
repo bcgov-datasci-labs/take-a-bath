@@ -64,22 +64,39 @@ plot(lake.bathy, image = TRUE, lwd = 0.1)
 
 library(raster)
 
-r <- raster(ext = extent(mob_lake), res = 500, crs = crs(mob_lake))
+r <- raster(ext = extent(mob_lake), res = 100, crs = crs(mob_lake))
 
 mob_lake_spdf <- as(mob_lake, "Spatial")
 mob_lake_raster <- rasterize(mob_lake, r)
 
 points_spdf <- as(points, "Spatial")
 
-depth_raster <- rasterize(points_spdf,r, field = "DEPTH_FLT")
+depth_raster <- rasterize(points_spdf,r, field = "DEPTH")
 plot(depth_raster)
 
 # ----------------------------------------------------
-# Make distance matrix to try ML analysis
+# Try distance analysis, will only work with raster res >=100 m
 
-temp <- cbind(cell = 1:ncell, coordinates(depth_raster), DEPTH_FLT = values(depth_raster))
-head(temp)
-which(temp$ncell)
+library(ranger)
 
-dist_mat <- pointDistance(temp[,1:2], lonlat = F)
-head(dist_mat)
+raster_data <- data.frame(cell = 1:ncell(depth_raster), coordinates(depth_raster), DEPTH = values(depth_raster))
+head(raster_data)
+idx <- which(!is.na(raster_data$DEPTH))
+
+dist_mat <- pointDistance(coordinates(depth_raster), lonlat = F)
+dist_mat <- dist_mat[,idx]
+
+mod_data <- na.omit(data.frame(DEPTH = raster_data$DEPTH, dist_mat))
+
+mod_rf <- ranger(DEPTH ~ ., data = mod_data)
+temp <- predict(mod_rf, data.frame(dist_mat))
+temp$predictions
+
+rf_output <- depth_raster
+values(rf_output) <- temp$predictions
+values(rf_output)[is.na(values(mob_lake_raster))] <- NA
+
+bath_pred_rf<- plot(rf_output)
+
+
+ggSave("out/bath_pred_rf.png",bath_pred_rf, units = )

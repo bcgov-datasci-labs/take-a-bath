@@ -121,5 +121,50 @@ plot(sub_result)
 diff_raster <- rf_result
 values(diff_raster) <- values(rf_result) - values(sub_result)
 plot(diff_raster)
+
 # ----------------------------------------------------
 
+# Function to generate a bathymetry map using a GAM model instead of a random forest
+# Results are much more generalized than the RF model
+# Advantage is there should be no limits on raster resolution
+
+library(mgcv)
+
+try_bath_gam <- function(depth, lake, res = 100){
+
+  r <- raster(ext = extent(lake), res = res, crs = crs(lake))
+
+  lake_raster <- rasterize(lake, r)
+
+  depth_spdf <- as(depth, "Spatial")
+
+  depth_raster <- rasterize(depth_spdf, r, field = "DEPTH")
+
+  ###
+
+  raster_data <- data.frame(cell = 1:ncell(depth_raster), coordinates(depth_raster), DEPTH = values(depth_raster))
+  idx <- which(!is.na(raster_data$DEPTH))
+
+  mod <- gam(DEPTH ~ s(x,y), data = na.omit(raster_data))
+  summary(mod)
+
+  gam_output <- interpolate(lake_raster, mod)
+
+  values(gam_output)[is.na(values(lake_raster))] <- NA
+  gam_output
+}
+
+# run RF model
+rf_result <- try_bath_rf(depth = points, lake = mob_lake, res = 100)
+plot(rf_result)
+
+# run GAM model
+gam_result <- try_bath_gam(depth = points, lake = mob_lake, res = 100)
+plot(gam_result)
+
+# compare RF result with GAM result
+comp_raster <- rf_result
+values(comp_raster) <- values(rf_result) - values(gam_result)
+plot(comp_raster)
+
+# ----------------------------------------------------

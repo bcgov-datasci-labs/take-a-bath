@@ -10,7 +10,9 @@ This respository contains scripts for reading in sonar bathymetry data for a wat
        + Get the lake boundary from [BC Data Warehouse Freshwater Atlas Lakes](https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-lakes)
        ![](./out/raw-data-lake.png)
 2.   Create raster bathymetry surface from data subsets of varying number of transects
-       + Explore Saga, marmap, and Machine Learning for building raster
+       + Sample bathymetry data using transects across lake
+       ![](./out/grid_plot.png)
+       + Explore Saga, marmap, and Machine Learning for building raster bathymetry surface
        ![](./out/depth_rf_plot.png)
 3.   Compare bathymetry surfaces to determine the optimal number of transects to get an accurate bathymetry surface
        + Difference raster layers and calculate mean difference
@@ -22,10 +24,11 @@ This respository contains scripts for reading in sonar bathymetry data for a wat
        + classify satellite imagery and extract lake polygon
 2. Upload user lake polygon
 
+
+### Data
+Data used for **Phase 1 - Test Case** is sonar sounding bathymetry data collected in transects for Moberly Lake, supplied by BC Government staff. User data should be added to the `data` folder.
+
 ### Usage
-
-Data used for **Phase 1 - Test Case** is point sonar bathymetry data collected in transects supplied by BC Government staff. User data should be added to the `data` folder.
-
 Describe how to run. Eg:
 
 There are four core scripts that are required for the analysis, they need to be run in order:

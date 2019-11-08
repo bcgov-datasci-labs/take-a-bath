@@ -23,3 +23,15 @@ rawdata <- ggplot() +
 
 ggsave("out/raw-data-lake.png", plot = rawdata)
 
+# Plot example of
+
+temp <- data.frame(coordinates(rf_output), depth = values(rf_output))
+
+depth_rf_plot <- ggplot() +
+  geom_tile(data = temp, (aes(x = x, y = y, fill = depth ))) +
+  scale_fill_continuous(trans = "reverse", na.value = grey(0.9)) +
+  theme_minimal() +
+  labs(title = "Example bathymetry predictions using random forest",
+       caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
+depth_rf_plot
+ggsave("out/depth_rf_plot.png", plot = depth_rf_plot)

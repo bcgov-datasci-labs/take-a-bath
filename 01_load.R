@@ -15,22 +15,26 @@ library(bcdata)
 library(mapview)
 
 # ----------------------------------------------------
-# Load points from the data directory
+
+# Load lake survey points from the data directory
+
+file_path <- "data/moberly.zip"
 
 # Unzip depth points file
-unzip("data/moberly.zip", exdir = "data")
+raw_data <- unzip(file_path, exdir = "data")
 
 # Load shapefile
-points <- st_read("data/moberly_final.shp", quiet = TRUE)
+points <- st_read(raw_data, quiet = TRUE)
 points
 
 # View map in mapview
 mapview(points)
 
 # ----------------------------------------------------
-# Get lake polygon from BCDC
+# Get lake polygon from Freshwater Atlas Lakes in B.C. Data Catalogue
+# using bcdata package
 
-mob_lake <- bcdc_query_geodata('freshwater-atlas-lakes') %>%
+mob_lake <- bcdc_query_geodata('cb1e3aba-d3fe-4de1-a2d4-b8b6650fb1f6') %>%
   filter(INTERSECTS(points)) %>%
   filter(AREA_HA > 10) %>%
   collect()
@@ -41,3 +45,5 @@ mapview(mob_lake)
 # Transform points data to projection of lake data
 
 points <- st_transform(points, st_crs(mob_lake))
+
+

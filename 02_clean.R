@@ -31,12 +31,16 @@ points_by_grid <- points %>%
   st_join(lake_grid)
 
 # subsample points by grid
-grids <- unique(points_by_grid$grid_number)
-fewer_grids <- grids[c(TRUE, FALSE)]
+grids <- order(unique(points_by_grid$grid_number))
+# fewer_grids <- grids[c(TRUE, FALSE)]
+fewer_grids <- seq(1, length(grids), 2)
 
 half_sampling <- points_by_grid %>%
   filter(grid_number %in% fewer_grids)
 
-
+ggplot() +
+geom_sf(data = mob_lake) +
+geom_sf(data = lake_grid, fill = NA) +
+  geom_sf(data = half_sampling)
 
 

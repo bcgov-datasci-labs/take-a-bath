@@ -56,7 +56,8 @@ geom_sf(data = lake_grid, fill = NA) +
   labs(title = "Grid overlay for transect (30)",
        caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
 
-ggsave("out/grid_plot.png", plot = sample_grid)
+ggsave("out/grid_plot.png", plot = sample_grid,
+       width = 20, height = 8, units = "cm")
 
 # ----------------------------------------------------
 

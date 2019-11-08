@@ -33,11 +33,11 @@ ggsave("out/raw-data-lake.png", plot = rawdata,
 # Plot example of bathymetry estimates generated using random forest in the
 # ranger package
 
-temp <- data.frame(coordinates(rf_output), depth = values(rf_output))
+temp <- data.frame(coordinates(rf_result), depth = values(rf_result))
 
 depth_rf_plot <- ggplot() +
   geom_tile(data = temp, (aes(x = x, y = y, fill = depth ))) +
-  scale_fill_continuous(trans = "reverse", na.value = grey(0.9)) +
+  scale_fill_continuous(trans = "reverse", na.value = grey(0.9),  name = "Depth (m)") +
   theme_minimal() +
   labs(title = "Example bathymetry predictions using random forest",
        caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
@@ -60,6 +60,7 @@ ggsave("out/grid_plot.png", plot = sample_grid,
        width = 20, height = 8, units = "cm")
 
 
+
 # ----------------------------------------------------
 # Plot  of half data
 
@@ -73,4 +74,37 @@ geom_sf(data = lake_grid, fill = NA) +
 
 ggsave("out/half_data_plot.png", plot = half_data,
        width = 20, height = 8, units = "cm")
+
+
+# ----------------------------------------------------
+
+# Plot example of bathymetry estimates generated using random forest with half the sampling transects
+# ranger package
+
+temp <- data.frame(coordinates(sub_result), depth = values(sub_result))
+
+depth_sub_plot <- ggplot() +
+  geom_tile(data = temp, (aes(x = x, y = y, fill = depth ))) +
+  scale_fill_continuous(trans = "reverse", na.value = grey(0.9), name = "Depth (m)") +
+  theme_minimal() +
+  labs(title = "Example bathymetry predictions using 50% of transects",
+       caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
+depth_sub_plot
+ggsave("out/depth_sub_plot.png", plot = depth_sub_plot)
+
+# ----------------------------------------------------
+
+# Plot example of difference between sub_result and rf_result
+
+temp <- data.frame(coordinates(diff_raster), depth = values(diff_raster))
+
+diff_plot <- ggplot() +
+  geom_tile(data = temp, (aes(x = x, y = y, fill = depth ))) +
+  scale_fill_distiller(na.value = grey(0.9), palette = "YlOrRd", name = "Difference (m)") +
+  theme_minimal() +
+  labs(title = "Difference in bathymetry estimates using 50% of transects",
+       caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
+diff_plot
+
+ggsave("out/diff_plot.png", plot = diff_plot)
 

@@ -30,7 +30,8 @@ ggsave("out/raw-data-lake.png", plot = rawdata,
 
 # ----------------------------------------------------
 
-# Plot example ofbathymetry estimates generated using random forest in the ranger package
+# Plot example of bathymetry estimates generated using random forest in the
+# ranger package
 
 temp <- data.frame(coordinates(rf_output), depth = values(rf_output))
 
@@ -42,3 +43,18 @@ depth_rf_plot <- ggplot() +
        caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
 depth_rf_plot
 ggsave("out/depth_rf_plot.png", plot = depth_rf_plot)
+
+
+# ----------------------------------------------------
+# Plot  of grid design
+
+sample_grid <- ggplot() +
+geom_sf(data = mob_lake) +
+geom_sf(data = lake_grid, fill = NA) +
+  geom_sf(data = points) +
+  theme_minimal() +
+  labs(title = "Grid overlay for transect (30)",
+       caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
+
+ggsave("out/grid_plot.png", plot = sample_grid)
+

@@ -42,6 +42,7 @@ depth_rf_plot <- ggplot() +
   labs(title = "Example bathymetry predictions using random forest",
        caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
 depth_rf_plot
+
 ggsave("out/depth_rf_plot.png", plot = depth_rf_plot)
 
 
@@ -58,8 +59,6 @@ geom_sf(data = lake_grid, fill = NA) +
 
 ggsave("out/grid_plot.png", plot = sample_grid,
        width = 20, height = 8, units = "cm")
-
-
 
 # ----------------------------------------------------
 # Plot  of half data

@@ -6,27 +6,32 @@ This respository contains scripts for reading in sonar bathymetry data for a wat
 ### The Plan
 #### Phase 1 - Test case
 1.   Read in the data
-       + Read in sonar transect data from Moberly Lake
-       + Get the lake boundary from [BC Data Warehouse Freshwater Atlas Lakes](https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-lakes)
+       + Read in sonar transect data from Moberly Lake. Data used for **Phase 1 - Test Case** is sonar sounding bathymetry data collected in transects and supplied by BC Government staff. 
+       + Get the lake boundary from [BC Data Warehouse Freshwater Atlas Lakes](https://catalogue.data.gov.bc.ca/dataset/freshwater-atlas-lakes) and distributed under the [Access Only - B.C. Crown Copyright](https://www2.gov.bc.ca/gov/content?id=1AAACC9C65754E4D89A118B875E0FBDA) licence.
        ![](./out/raw-data-lake.png)
 2.   Create raster bathymetry surface from data subsets of varying number of transects
-       + Sample bathymetry data using transects across lake
-       ![](./out/grid_plot.png)
        + Explore Saga, marmap, and Machine Learning for building raster bathymetry surface
        ![](./out/depth_rf_plot.png)
+       + Sample bathymetry data using transects across lake
+       ![](./out/grid_plot.png)
+       + Sample bathymetry data using half the transects
+       ![](./out/half_data_plot.png)
+       ![](./out/depth_sub_plot.png)
 3.   Compare bathymetry surfaces to determine the optimal number of transects to get an accurate bathymetry surface
        + Difference raster layers and calculate mean difference
+       ![](./out/diff_plot.png)
        + Create plot of data amount vs difference
-       + Provide suggestion for number of transects
+       + Provide suggestion for number of transects to use for sampling
 
 #### Phase 2 - Improvements
 1. Get lake boundary from satellite imagery for current lake boundary
        + classify satellite imagery and extract lake polygon
 2. Upload user lake polygon
+3. Align transect grid to the lake axis.
 
 
 ### Data
-Data used for **Phase 1 - Test Case** is sonar sounding bathymetry data collected in transects for Moberly Lake, supplied by BC Government staff. User data should be added to the `data` folder.
+User data should be added to the `data` folder.
 
 ### Usage
 Describe how to run. Eg:

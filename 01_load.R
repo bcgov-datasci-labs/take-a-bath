@@ -14,6 +14,7 @@ library(sf)
 library(bcdata)
 library(mapview)
 
+# ----------------------------------------------------
 
 # Unzip depth points file
 unzip("data/moberly.zip", exdir = "data")
@@ -24,3 +25,11 @@ points
 
 # View map in mapview
 mapview(points)
+
+# ----------------------------------------------------
+
+# Get moberly lake polygon from BCDC
+mob_lake <- bcdc_query_geodata('freshwater-atlas-lakes') %>%
+  filter(GNIS_NAME_1 == "Moberly Lake") %>%
+  collect()
+mapview(mob_lake)

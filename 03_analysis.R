@@ -18,6 +18,9 @@
 library(dplyr)
 library(sf)
 library(marmap)
+library(raster)
+library(ranger)
+library(mgcv)
 
 #example from marmap
 data(irregular)
@@ -78,7 +81,6 @@ plot(depth_raster)
 # Try distance analysis, will only work with raster res >=100 m
 # This works but it has limited resolution
 
-library(ranger)
 
 # Function to do spatial random forest using depth points and lake polygon as inputs
 # raster resolution cannot be higher than 100 m
@@ -127,8 +129,6 @@ plot(diff_raster)
 # Function to generate a bathymetry map using a GAM model instead of a random forest
 # Results are much more generalized than the RF model
 # Advantage is there should be no limits on raster resolution
-
-library(mgcv)
 
 try_bath_gam <- function(depth, lake, res = 100){
 

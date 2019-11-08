@@ -115,5 +115,11 @@ try_bath_rf <- function(depth, lake, res = 100){
 rf_result <- try_bath_rf(depth = points, lake = mob_lake, res = 100)
 plot(rf_result)
 
+sub_result <- try_bath_rf(depth = half_sampling, lake = mob_lake, res = 100)
+plot(sub_result)
+
+diff_raster <- rf_result
+values(diff_raster) <- values(rf_result) - values(sub_result)
+plot(diff_raster)
 # ----------------------------------------------------
 

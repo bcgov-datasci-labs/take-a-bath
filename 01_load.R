@@ -35,3 +35,6 @@ mob_lake <- bcdc_query_geodata('freshwater-atlas-lakes') %>%
 
 mapview(mob_lake)
 
+# ----------------------------------------------------
+
+points <- st_transform(points, st_crs(mob_lake))

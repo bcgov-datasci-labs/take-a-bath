@@ -2,7 +2,9 @@
 
 
 ## take-a-bath
-This respository contains scripts for reading in sonar bathymetry data for a water body, building a raster bathymetry surface, and evaluating the optimal number of transects to build an accurate surface. The scripts were developed as part of the BC Government North Area R Geospatial Workshop Hackathon.
+This respository contains scripts for reading in sonar bathymetry data for a water body, building a raster bathymetry surface using machine learning, and a possible method for evaluating the optimal number of transects to build an accurate surface. 
+
+The scripts were developed as part of the BC Government North Area R Geospatial Workshop Hackathon, tackling this [Issue](https://github.com/bcgov/bcgov-r-geo-workshop/issues/22). Team `take-a-bath`: Kristen Peck, Sasha Lees, Allison Patterson, Christina Tennant, Steph Hazlitt.
 
 
 ### The Plan

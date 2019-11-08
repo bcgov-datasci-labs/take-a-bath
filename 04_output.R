@@ -20,7 +20,8 @@ rawdata <- ggplot() +
   theme_minimal() +
   labs(title = "Sonar Sounding Transects at Moberly Lake (2019)",
        caption = "Data sourced from Ministry of Environment & Climate Change Strategy") +
-  theme(plot.margin = unit(c(0,3,0,3), "mm"))
+  theme(plot.margin = unit(c(5,3,0,5), "mm"))
 
-ggsave("out/raw-data-lake.png", plot = rawdata)
+ggsave("out/raw-data-lake.png", plot = rawdata,
+       width = 20, height = 8, units = "cm")
 

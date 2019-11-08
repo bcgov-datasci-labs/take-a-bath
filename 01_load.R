@@ -15,6 +15,7 @@ library(bcdata)
 library(mapview)
 
 # ----------------------------------------------------
+
 # Load lake survey points from the data directory
 
 file_path <- "data/moberly.zip"

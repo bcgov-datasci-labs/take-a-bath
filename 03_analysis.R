@@ -10,7 +10,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
-
+# ----------------------------------------------------
 # This is exploring using marmap to make a bethy map so that we don't have
 # to do this ourselves
 
@@ -33,7 +33,7 @@ bat <- as.bathy(reg)
 class(bat)
 plot(bat, image = TRUE, lwd = 0.1)
 
-
+# ----------------------------------------------------
 #try this out with the lake data
 
 str(irregular)
@@ -56,11 +56,30 @@ lake.bathy <- as.bathy(lk)
 plot(lake.bathy, image = TRUE, lwd = 0.1)
 
 
+# ----------------------------------------------------
+# Convert lake polygon and depth points into matching rasters
+# depth_raster is raster of depth values from points file
+# mob_lake_raster is raster of lake polygon
 
 
+library(raster)
 
+r <- raster(ext = extent(mob_lake), res = 500, crs = crs(mob_lake))
 
+mob_lake_spdf <- as(mob_lake, "Spatial")
+mob_lake_raster <- rasterize(mob_lake, r)
 
+points_spdf <- as(points, "Spatial")
 
+depth_raster <- rasterize(points_spdf,r, field = "DEPTH_FLT")
+plot(depth_raster)
 
+# ----------------------------------------------------
+# Make distance matrix to try ML analysis
 
+temp <- cbind(cell = 1:ncell, coordinates(depth_raster), DEPTH_FLT = values(depth_raster))
+head(temp)
+which(temp$ncell)
+
+dist_mat <- pointDistance(temp[,1:2], lonlat = F)
+head(dist_mat)

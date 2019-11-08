@@ -19,7 +19,8 @@ rawdata <- ggplot() +
   geom_sf(data = points) +
   theme_minimal() +
   labs(title = "Sonar Sounding Transects at Moberly Lake (2019)",
-       caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
+       caption = "Data sourced from Ministry of Environment & Climate Change Strategy") +
+  theme(plot.margin = unit(c(0,3,0,3), "mm"))
 
 ggsave("out/raw-data-lake.png", plot = rawdata)
 

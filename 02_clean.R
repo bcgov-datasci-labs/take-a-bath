@@ -11,6 +11,7 @@
 # See the License for the specific language governing permissions and limitations under the License.
 
 library(dplyr)
+library(ggplot2)
 
 ## Sub-sampling points along transects for a sonar measurements for a lake
 

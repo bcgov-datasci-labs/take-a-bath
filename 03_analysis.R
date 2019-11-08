@@ -76,27 +76,44 @@ plot(depth_raster)
 
 # ----------------------------------------------------
 # Try distance analysis, will only work with raster res >=100 m
+# This works but it has limited resolution
 
 library(ranger)
 
-raster_data <- data.frame(cell = 1:ncell(depth_raster), coordinates(depth_raster), DEPTH = values(depth_raster))
-head(raster_data)
-idx <- which(!is.na(raster_data$DEPTH))
+# Function to do spatial random forest using depth points and lake polygon as inputs
+# raster resolution cannot be higher than 100 m
 
-dist_mat <- pointDistance(coordinates(depth_raster), lonlat = F)
-dist_mat <- dist_mat[,idx]
+try_bath_rf <- function(depth, lake, res = 100){
 
-mod_data <- na.omit(data.frame(DEPTH = raster_data$DEPTH, dist_mat))
+  r <- raster(ext = extent(lake), res = res, crs = crs(lake))
 
-mod_rf <- ranger(DEPTH ~ ., data = mod_data)
-temp <- predict(mod_rf, data.frame(dist_mat))
-temp$predictions
+  lake_raster <- rasterize(lake, r)
 
-rf_output <- depth_raster
-values(rf_output) <- temp$predictions
-values(rf_output)[is.na(values(mob_lake_raster))] <- NA
+  depth_spdf <- as(depth, "Spatial")
 
-bath_pred_rf<- plot(rf_output)
+  depth_raster <- rasterize(depth_spdf, r, field = "DEPTH")
 
+  raster_data <- data.frame(cell = 1:ncell(depth_raster), coordinates(depth_raster), DEPTH = values(depth_raster))
+  idx <- which(!is.na(raster_data$DEPTH))
 
-ggSave("out/bath_pred_rf.png",bath_pred_rf, units = )
+  dist_mat <- pointDistance(coordinates(depth_raster), lonlat = F, allpairs = T)
+
+  dist_mat <- dist_mat[,idx]
+
+  mod_data <- na.omit(data.frame(DEPTH = raster_data$DEPTH, dist_mat))
+
+  mod_rf <- ranger(DEPTH ~ ., data = mod_data)
+  temp <- predict(mod_rf, data.frame(dist_mat))
+  temp$predictions
+
+  rf_output <- depth_raster
+  values(rf_output) <- temp$predictions
+  values(rf_output)[is.na(values(lake_raster))] <- NA
+  rf_output
+}
+
+rf_result <- try_bath_rf(depth = points, lake = mob_lake, res = 100)
+plot(rf_result)
+
+# ----------------------------------------------------
+

@@ -59,6 +59,23 @@ geom_sf(data = lake_grid, fill = NA) +
 ggsave("out/grid_plot.png", plot = sample_grid,
        width = 20, height = 8, units = "cm")
 
+
+
+# ----------------------------------------------------
+# Plot  of half data
+
+half_data <- ggplot() +
+geom_sf(data = mob_lake) +
+geom_sf(data = lake_grid, fill = NA) +
+  geom_sf(data = half_sampling) +
+  theme_minimal() +
+  labs(title = "Sub-sampled ~ half transects",
+       caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
+
+ggsave("out/half_data_plot.png", plot = half_data,
+       width = 20, height = 8, units = "cm")
+
+
 # ----------------------------------------------------
 
 # Plot example of bathymetry estimates generated using random forest with half the sampling transects
@@ -88,4 +105,6 @@ diff_plot <- ggplot() +
   labs(title = "Difference in bathymetry estimates using 50% of transects",
        caption = "Data sourced from Ministry of Environment & Climate Change Strategy")
 diff_plot
+
 ggsave("out/diff_plot.png", plot = diff_plot)
+

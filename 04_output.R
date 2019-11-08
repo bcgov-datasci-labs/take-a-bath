@@ -10,6 +10,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and limitations under the License.
 
+# ----------------------------------------------------
+# Plot of raw depth soundings
+
 library(ggplot2)
 
 # Plot raw data
@@ -25,7 +28,9 @@ rawdata <- ggplot() +
 ggsave("out/raw-data-lake.png", plot = rawdata,
        width = 20, height = 8, units = "cm")
 
-# Plot example of
+# ----------------------------------------------------
+
+# Plot example ofbathymetry estimates generated using random forest in the ranger package
 
 temp <- data.frame(coordinates(rf_output), depth = values(rf_output))
 

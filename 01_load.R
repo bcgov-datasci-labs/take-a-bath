@@ -15,6 +15,7 @@ library(bcdata)
 library(mapview)
 
 # ----------------------------------------------------
+# Load points fril from the data directory
 
 # Unzip depth points file
 unzip("data/moberly.zip", exdir = "data")
@@ -27,6 +28,7 @@ points
 mapview(points)
 
 # ----------------------------------------------------
+# Get lake polygon from BCDC
 
 mob_lake <- bcdc_query_geodata('freshwater-atlas-lakes') %>%
   filter(INTERSECTS(points)) %>%
@@ -36,5 +38,6 @@ mob_lake <- bcdc_query_geodata('freshwater-atlas-lakes') %>%
 mapview(mob_lake)
 
 # ----------------------------------------------------
+# Transform points data to projection of lake data
 
 points <- st_transform(points, st_crs(mob_lake))

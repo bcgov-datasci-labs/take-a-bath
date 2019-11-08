@@ -11,6 +11,7 @@ This respository contains scripts for reading in sonar bathymetry data for a wat
        ![](./out/raw-data-lake.png)
 2.   Create raster bathymetry surface from data subsets of varying number of transects
        + Explore Saga, marmap, and Machine Learning for building raster
+       ![](./out/depth_rf_plot.png)
 3.   Compare bathymetry surfaces to determine the optimal number of transects to get an accurate bathymetry surface
        + Difference raster layers and calculate mean difference
        + Create plot of data amount vs difference

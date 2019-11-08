@@ -28,8 +28,10 @@ mapview(points)
 
 # ----------------------------------------------------
 
-# Get moberly lake polygon from BCDC
 mob_lake <- bcdc_query_geodata('freshwater-atlas-lakes') %>%
-  filter(GNIS_NAME_1 == "Moberly Lake") %>%
+  filter(INTERSECTS(points)) %>%
+  filter(AREA_HA > 10) %>%
   collect()
+
 mapview(mob_lake)
+

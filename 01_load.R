@@ -24,7 +24,7 @@ file_path <- "data/moberly.zip"
 raw_data <- unzip(file_path, exdir = "data")
 
 # Load shapefile
-points <- st_read(raw_data, quiet = TRUE)
+points <- st_read(raw_data[5], quiet = TRUE)
 points
 
 # View map in mapview
